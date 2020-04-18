@@ -1168,7 +1168,8 @@ void OS_Windows::process_key_events() {
 				if (k->get_unicode() < 32)
 					k->set_unicode(0);
 
-				k->set_echo((ke.uMsg == WM_KEYDOWN && (ke.lParam & (1 << 30))));
+				bool last_is_pressed = Input::get_singleton()->is_key_pressed(k->get_scancode());
+				k->set_echo((ke.uMsg == WM_KEYDOWN && last_is_pressed));
 
 				input->accumulate_input_event(k);
 
